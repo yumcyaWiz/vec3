@@ -1,3 +1,6 @@
 #include "vec3.hpp"
 
-int main() { return 0; }
+int main() {
+  Vec3 v(0, 0, 0);
+  return 0;
+}
