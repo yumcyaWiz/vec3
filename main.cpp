@@ -3,7 +3,6 @@
 #include "vec3.hpp"
 
 int main() {
-  Vec3 v(0, 0, 0);
-  std::cout << v << std::endl;
+  constexpr Vec3 v3 = Vec3(0, 1, 2) + Vec3(1, 2, 3);
   return 0;
 }
