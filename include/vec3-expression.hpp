@@ -37,7 +37,7 @@ class Expression {
   const R& r;
 
  public:
-  Expression(const L& _l, const R& _r) : l(_l), r(_r) {}
+  constexpr Expression(const L& _l, const R& _r) : l(_l), r(_r) {}
 
   constexpr float operator[](std::size_t i) const {
     return Op::apply(l[i], r[i]);
