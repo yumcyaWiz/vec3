@@ -1,6 +1,5 @@
 #ifndef _VEC3_H
 #define _VEC3_H
-#include <array>
 #include <iostream>
 
 class Vec3 {
