@@ -6,27 +6,28 @@
 #include "vec3-expression.hpp"
 #include "vec3.hpp"
 
+template <typename VecX>
+bool hitSphere(const VecX& center, float radius, const VecX& origin,
+               const VecX& direction) {
+  const float a = dot(direction, direction);
+  const float b = dot(direction, origin - center);
+  const float c = dot(origin - center, origin - center) - radius * radius;
+  const float D = b * b - 4 * a * c;
+
+  const float t1 = (-b - std::sqrt(D)) / (2 * a);
+  const float t2 = (-b + std::sqrt(D)) / (2 * a);
+  float t = t1;
+  if (t < 0) {
+    t = t2;
+    if (t < 0) {
+      return false;
+    }
+  }
+  return true;
+}
+
 int main() {
   const unsigned int samples = 10000000;
-
-  auto hitSphere = [](const auto& center, float radius, const auto& origin,
-                      const auto& direction) {
-    const float a = dot(direction, direction);
-    const float b = dot(direction, origin - center);
-    const float c = dot(origin - center, origin - center) - radius * radius;
-    const float D = b * b - 4 * a * c;
-
-    const float t1 = (-b - std::sqrt(D)) / (2 * a);
-    const float t2 = (-b + std::sqrt(D)) / (2 * a);
-    float t = t1;
-    if (t < 0) {
-      t = t2;
-      if (t < 0) {
-        return false;
-      }
-    }
-    return true;
-  };
 
   RNG rng(1);
 
