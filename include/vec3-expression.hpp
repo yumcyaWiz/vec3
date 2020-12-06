@@ -3,26 +3,9 @@
 #include <array>
 #include <iostream>
 
+// forward declaration
 template <typename L, typename Op, typename R>
-class Expression {
- private:
-  const L& l;
-  const R& r;
-
- public:
-  constexpr Expression(const L& _l, const R& _r) : l(_l), r(_r) {}
-
-  constexpr float operator[](std::size_t i) const {
-    return Op::apply(l[i], r[i]);
-  }
-};
-
-struct Plus {
-  static constexpr float apply(float lhs, float rhs) { return lhs + rhs; }
-};
-struct Minus {
-  static constexpr float apply(float lhs, float rhs) { return lhs - rhs; }
-};
+class Expression;
 
 class Vec3E {
  public:
@@ -44,6 +27,32 @@ class Vec3E {
     }
     return *this;
   }
+};
+
+template <typename L, typename Op, typename R>
+class Expression {
+ private:
+  const L& l;
+  const R& r;
+
+ public:
+  constexpr Expression(const L& _l, const R& _r) : l(_l), r(_r) {}
+
+  constexpr float operator[](std::size_t i) const {
+    return Op::apply(l[i], r[i]);
+  }
+
+  // for dot(Expression, Expression)
+  constexpr operator Vec3E() const {
+    return Vec3E((*this)[0], (*this)[1], (*this)[2]);
+  }
+};
+
+struct Plus {
+  static constexpr float apply(float lhs, float rhs) { return lhs + rhs; }
+};
+struct Minus {
+  static constexpr float apply(float lhs, float rhs) { return lhs - rhs; }
 };
 
 inline std::ostream& operator<<(std::ostream& stream, const Vec3E& v) {
