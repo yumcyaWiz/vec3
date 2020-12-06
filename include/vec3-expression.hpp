@@ -56,7 +56,7 @@ inline constexpr Expression<L, Plus, R> operator+(const L& lhs, const R& rhs) {
   return Expression<L, Plus, R>(lhs, rhs);
 }
 template <typename L, typename R>
-inline constexpr Expression<L, Plus, R> operator-(const L& lhs, const R& rhs) {
+inline constexpr Expression<L, Minus, R> operator-(const L& lhs, const R& rhs) {
   return Expression<L, Minus, R>(lhs, rhs);
 }
 
