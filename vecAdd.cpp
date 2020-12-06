@@ -15,7 +15,7 @@ bool vecAdd(const VecX& v1, const VecX& v2) {
 }
 
 int main() {
-  const unsigned int samples = 100000000;
+  const unsigned int samples = 1000000;
 
   RNG rng(1);
 

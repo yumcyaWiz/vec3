@@ -2,24 +2,6 @@
 #define _VEC3_EXPRESSION_H
 #include <iostream>
 
-// forward declaration
-template <typename L, typename Op, typename R>
-class Expression;
-
-class Vec3E {
- public:
-  float v[3];
-
-  constexpr Vec3E() : v{0, 0, 0} {}
-  constexpr Vec3E(float _x) : v{_x, _x, _x} {}
-  constexpr Vec3E(float _x, float _y, float _z) : v{_x, _y, _z} {}
-
-  constexpr float x() const { return v[0]; }
-  constexpr float y() const { return v[1]; }
-  constexpr float z() const { return v[2]; }
-  constexpr float operator[](std::size_t i) const { return v[i]; }
-};
-
 template <typename L, typename Op, typename R>
 class Expression {
  private:
@@ -34,8 +16,31 @@ class Expression {
   }
 
   // for dot(Expression, Expression)
-  constexpr operator Vec3E() const {
-    return Vec3E((*this)[0], (*this)[1], (*this)[2]);
+  // NOTE: 一時オブジェクトを作るのでExpression Templateの意味が失われる
+  // constexpr operator Vec3E() const {
+  //   return Vec3E((*this)[0], (*this)[1], (*this)[2]);
+  // }
+};
+
+class Vec3E {
+ public:
+  float v[3];
+
+  constexpr Vec3E() : v{0, 0, 0} {}
+  constexpr Vec3E(float _x) : v{_x, _x, _x} {}
+  constexpr Vec3E(float _x, float _y, float _z) : v{_x, _y, _z} {}
+
+  constexpr float x() const { return v[0]; }
+  constexpr float y() const { return v[1]; }
+  constexpr float z() const { return v[2]; }
+  constexpr float operator[](std::size_t i) const { return v[i]; }
+
+  template <typename L, typename Op, typename R>
+  Vec3E& operator=(const Expression<L, Op, R>& e) {
+    for (unsigned int i = 0; i < 3; ++i) {
+      v[i] = e[i];
+    }
+    return *this;
   }
 };
 
