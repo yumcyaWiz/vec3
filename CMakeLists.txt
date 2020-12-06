@@ -13,3 +13,6 @@ target_include_directories(hitSphere PRIVATE include)
 
 add_executable(vecAdd vecAdd.cpp)
 target_include_directories(vecAdd PRIVATE include)
+
+add_executable(test test.cpp)
+target_include_directories(test PRIVATE include)
