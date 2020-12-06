@@ -1,22 +1,31 @@
 #include <chrono>
 #include <cmath>
 #include <iostream>
-#include <random>
 
+#include "rng.hpp"
 #include "vec3-expression.hpp"
 #include "vec3.hpp"
 
 int main() {
   const unsigned int samples = 10000000;
 
-  auto test_func = [](const auto& center, float radius, const auto& origin,
+  auto vecAdd = [](const auto& v1, const auto& v2) {
+    const auto v3 = v1 + v2;
+    const auto v4 = v1 + v2 + v3;
+    const auto v5 = v1 + v2 + v3 + v4;
+    const auto v6 = v1 + v2 + v3 + v4 + v5;
+    return dot(v6, v6) > 10.0f;
+  };
+
+  auto hitSphere = [](const auto& center, float radius, const auto& origin,
                       const auto& direction) {
+    const float a = dot(direction, direction);
     const float b = dot(direction, origin - center);
     const float c = dot(origin - center, origin - center) - radius * radius;
-    const float D = b * b - c;
+    const float D = b * b - 4 * a * c;
 
-    const float t1 = -b - std::sqrt(D);
-    const float t2 = -b + std::sqrt(D);
+    const float t1 = (-b - std::sqrt(D)) / (2 * a);
+    const float t2 = (-b + std::sqrt(D)) / (2 * a);
     float t = t1;
     if (t < 0) {
       t = t2;
@@ -27,14 +36,13 @@ int main() {
     return true;
   };
 
-  std::random_device seed_gen;
-  std::mt19937 rng(seed_gen());
+  RNG rng(1);
 
   unsigned int hit_count = 0;
   auto start_time = std::chrono::system_clock::now();
   for (unsigned int i = 0; i < samples; ++i) {
-    hit_count += test_func(Vec3(0, 0, 0), 1.0, Vec3(0, 0, -3),
-                           Vec3(rng(), rng(), rng()));
+    hit_count += hitSphere(Vec3(0, 0, 0), 1.0, Vec3(0, 0, -3),
+                           Vec3(rng.getNext(), rng.getNext(), rng.getNext()));
   }
   auto end_time = std::chrono::system_clock::now();
   std::cout << std::chrono::duration_cast<std::chrono::milliseconds>(end_time -
@@ -46,8 +54,8 @@ int main() {
   hit_count = 0;
   start_time = std::chrono::system_clock::now();
   for (unsigned int i = 0; i < samples; ++i) {
-    hit_count += test_func(Vec3E(0, 0, 0), 1.0, Vec3E(0, 0, -3),
-                           Vec3E(rng(), rng(), rng()));
+    hit_count += hitSphere(Vec3E(0, 0, 0), 1.0, Vec3E(0, 0, -3),
+                           Vec3E(rng.getNext(), rng.getNext(), rng.getNext()));
   }
   end_time = std::chrono::system_clock::now();
   std::cout << std::chrono::duration_cast<std::chrono::milliseconds>(end_time -
