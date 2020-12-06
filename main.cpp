@@ -2,14 +2,14 @@
 #include <iostream>
 
 #include "vec3-expression.hpp"
-#include "vec3-ordinal.hpp"
+#include "vec3.hpp"
 
 int main() {
-  Vec3O ret;
-  Vec3O v1(0, 1, 2);
-  Vec3O v2(3, 4, 5);
-  Vec3O v3(3, 4, 5);
-  Vec3O v4(3, 4, 5);
+  Vec3 ret;
+  Vec3 v1(0, 1, 2);
+  Vec3 v2(3, 4, 5);
+  Vec3 v3(3, 4, 5);
+  Vec3 v4(3, 4, 5);
   auto start_time = std::chrono::system_clock::now();
   for (unsigned int i = 0; i < 1e7; ++i) {
     ret = v1 + v2 + v3 + v4;
