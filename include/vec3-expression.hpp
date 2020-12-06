@@ -5,8 +5,8 @@
 template <typename L, typename Op, typename R>
 class Expression {
  private:
-  const L& l;
-  const R& r;
+  const L l;
+  const R r;
 
  public:
   constexpr Expression(const L& _l, const R& _r) : l(_l), r(_r) {}
