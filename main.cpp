@@ -26,34 +26,25 @@ int main() {
     return true;
   };
 
-  Vec3 ret;
   auto start_time = std::chrono::system_clock::now();
-  int hit_count = 0;
   for (unsigned int i = 0; i < samples; ++i) {
-    hit_count += test_func(Vec3(0, 0, 0), 1.0, Vec3(0, 0, -3), Vec3(0, 0, 1));
+    test_func(Vec3(0, 0, 0), 1.0, Vec3(0, 0, -3), Vec3(0, 0, 1));
   }
   auto end_time = std::chrono::system_clock::now();
   std::cout << std::chrono::duration_cast<std::chrono::milliseconds>(end_time -
                                                                      start_time)
                    .count()
             << std::endl;
-  std::cout << hit_count << std::endl;
 
-  Vec3E ret2;
-  Vec3E v1e(0, 1, 2);
-  Vec3E v2e(3, 4, 5);
-  Vec3E v3e(3, 4, 5);
-  Vec3E v4e(3, 4, 5);
   start_time = std::chrono::system_clock::now();
   for (unsigned int i = 0; i < samples; ++i) {
-    ret2 = v1e + v2e + v3e + v4e;
+    test_func(Vec3E(0, 0, 0), 1.0, Vec3E(0, 0, -3), Vec3E(0, 0, 1));
   }
   end_time = std::chrono::system_clock::now();
   std::cout << std::chrono::duration_cast<std::chrono::milliseconds>(end_time -
                                                                      start_time)
                    .count()
             << std::endl;
-  std::cout << ret2 << std::endl;
 
   return 0;
 }
