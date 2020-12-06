@@ -20,6 +20,9 @@ class Expression {
 struct Plus {
   static constexpr float apply(float lhs, float rhs) { return lhs + rhs; }
 };
+struct Minus {
+  static constexpr float apply(float lhs, float rhs) { return lhs - rhs; }
+};
 
 class Vec3E {
  public:
@@ -51,6 +54,10 @@ inline std::ostream& operator<<(std::ostream& stream, const Vec3E& v) {
 template <typename L, typename R>
 inline constexpr Expression<L, Plus, R> operator+(const L& lhs, const R& rhs) {
   return Expression<L, Plus, R>(lhs, rhs);
+}
+template <typename L, typename R>
+inline constexpr Expression<L, Plus, R> operator-(const L& lhs, const R& rhs) {
+  return Expression<L, Minus, R>(lhs, rhs);
 }
 
 #endif
