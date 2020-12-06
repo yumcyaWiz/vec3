@@ -18,14 +18,6 @@ class Vec3E {
   constexpr float y() const { return v[1]; }
   constexpr float z() const { return v[2]; }
   constexpr float operator[](std::size_t i) const { return v[i]; }
-
-  template <typename... Args>
-  constexpr Vec3E& operator=(const Expression<Args...>& e) {
-    for (unsigned int i = 0; i < 3; ++i) {
-      v[i] = e[i];
-    }
-    return *this;
-  }
 };
 
 template <typename L, typename Op, typename R>
