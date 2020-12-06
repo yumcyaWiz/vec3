@@ -1,6 +1,5 @@
 #ifndef _VEC3_EXPRESSION_H
 #define _VEC3_EXPRESSION_H
-#include <array>
 #include <iostream>
 
 // forward declaration
@@ -9,11 +8,11 @@ class Expression;
 
 class Vec3E {
  public:
-  std::array<float, 3> v;
+  float v[3];
 
-  constexpr Vec3E() : v({0, 0, 0}) {}
-  constexpr Vec3E(float _x) : v({_x, _x, _x}) {}
-  constexpr Vec3E(float _x, float _y, float _z) : v({_x, _y, _z}) {}
+  constexpr Vec3E() : v{0, 0, 0} {}
+  constexpr Vec3E(float _x) : v{_x, _x, _x} {}
+  constexpr Vec3E(float _x, float _y, float _z) : v{_x, _y, _z} {}
 
   constexpr float x() const { return v[0]; }
   constexpr float y() const { return v[1]; }
