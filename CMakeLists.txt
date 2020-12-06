@@ -9,3 +9,6 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 add_executable(hitSphere hitSphere.cpp)
 target_include_directories(hitSphere PRIVATE include)
+
+add_executable(vecAdd vecAdd.cpp)
+target_include_directories(vecAdd PRIVATE include)

@@ -9,14 +9,6 @@
 int main() {
   const unsigned int samples = 10000000;
 
-  auto vecAdd = [](const auto& v1, const auto& v2) {
-    const auto v3 = v1 + v2;
-    const auto v4 = v1 + v2 + v3;
-    const auto v5 = v1 + v2 + v3 + v4;
-    const auto v6 = v1 + v2 + v3 + v4 + v5;
-    return dot(v6, v6) > 10.0f;
-  };
-
   auto hitSphere = [](const auto& center, float radius, const auto& origin,
                       const auto& direction) {
     const float a = dot(direction, direction);
