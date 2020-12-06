@@ -30,7 +30,10 @@ class RNG {
       1.0f / std::numeric_limits<uint32_t>::max();
 
  public:
-  RNG(uint64_t seed) { state.state = seed; }
+  RNG(uint64_t seed) {
+    state.state = seed;
+    state.inc = 1;
+  }
 
   float getNext() { return pcg32_random_r(&state) * uint32_max_inv; }
 };
