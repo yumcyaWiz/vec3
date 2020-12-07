@@ -4,6 +4,7 @@
 
 #include "rng.hpp"
 #include "vec3-expression.hpp"
+#include "vec3-simd.hpp"
 #include "vec3.hpp"
 
 template <typename VecX>
@@ -49,6 +50,19 @@ int main() {
   for (unsigned int i = 0; i < samples; ++i) {
     hit_count += hitSphere(Vec3E(0, 0, 0), 1.0, Vec3E(0, 0, -3),
                            Vec3E(rng.getNext(), rng.getNext(), rng.getNext()));
+  }
+  end_time = std::chrono::system_clock::now();
+  std::cout << std::chrono::duration_cast<std::chrono::milliseconds>(end_time -
+                                                                     start_time)
+                   .count()
+            << std::endl;
+  std::cout << hit_count << std::endl;
+
+  hit_count = 0;
+  start_time = std::chrono::system_clock::now();
+  for (unsigned int i = 0; i < samples; ++i) {
+    hit_count += hitSphere(Vec3S(0, 0, 0), 1.0, Vec3S(0, 0, -3),
+                           Vec3S(rng.getNext(), rng.getNext(), rng.getNext()));
   }
   end_time = std::chrono::system_clock::now();
   std::cout << std::chrono::duration_cast<std::chrono::milliseconds>(end_time -
