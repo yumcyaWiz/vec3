@@ -6,16 +6,16 @@
 
 template <typename VecX>
 bool vecAdd(const VecX& v1, const VecX& v2) {
-  const auto v3 = v1 + v2;
-  const auto v4 = v1 + v2 + v3;
-  const auto v5 = v1 + v2 + v3 + v4;
-  const auto v6 = v1 + v2 + v3 + v4 + v5;
-  const auto v7 = v1 + v2 + v3 + v4 + v5 + v6;
+  const VecX v3 = v1 + v2;
+  const VecX v4 = v1 + v2 + v3;
+  const VecX v5 = v1 + v2 + v3 + v4;
+  const VecX v6 = v1 + v2 + v3 + v4 + v5;
+  const VecX v7 = v1 + v2 + v3 + v4 + v5 + v6;
   return dot(v7, v7) > 10.0f;
 }
 
 int main() {
-  const unsigned int samples = 1000000;
+  const unsigned int samples = 100000000;
 
   RNG rng(1);
 
